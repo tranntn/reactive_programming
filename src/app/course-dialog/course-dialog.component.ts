@@ -5,8 +5,10 @@ import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import * as moment from 'moment';
 import {catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
+import {CoursesStore} from '../services/courses.store';
 
 @Component({
+    // tslint:disable-next-line:component-selector
     selector: 'course-dialog',
     templateUrl: './course-dialog.component.html',
     styleUrls: ['./course-dialog.component.css']
@@ -15,12 +17,13 @@ export class CourseDialogComponent implements AfterViewInit {
 
     form: FormGroup;
 
-    course:Course;
+    course: Course;
 
     constructor(
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<CourseDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) course:Course) {
+        @Inject(MAT_DIALOG_DATA) course: Course,
+        private coursesStore: CoursesStore) {
 
         this.course = course;
 
@@ -28,7 +31,7 @@ export class CourseDialogComponent implements AfterViewInit {
             description: [course.description, Validators.required],
             category: [course.category, Validators.required],
             releasedAt: [moment(), Validators.required],
-            longDescription: [course.longDescription,Validators.required]
+            longDescription: [course.longDescription, Validators.required]
         });
 
     }
@@ -38,9 +41,10 @@ export class CourseDialogComponent implements AfterViewInit {
     }
 
     save() {
-
       const changes = this.form.value;
+      this.coursesStore.saveCourse(this.course.id, changes).subscribe();
 
+      this.dialogRef.close(changes);
     }
 
     close() {
