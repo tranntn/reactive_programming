@@ -35,6 +35,8 @@ import {SearchLessonsComponent} from './search-lessons/search-lessons.component'
 import { LoadingComponent } from './loading/loading.component';
 import { CoursesCardListComponent } from './courses-card-list/courses-card-list.component';
 import {LoadingService} from './services/loading.service';
+import { DrawerComponent } from './design-pattern/comment-drawer/comment-drawer.component';
+import { ParentComponent } from './design-pattern/parent/parent.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import {LoadingService} from './services/loading.service';
     MessagesComponent,
     SearchLessonsComponent,
     LoadingComponent,
-    CoursesCardListComponent
+    CoursesCardListComponent,
+    DrawerComponent,
+    ParentComponent
 
   ],
   imports: [
